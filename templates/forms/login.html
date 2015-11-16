@@ -1,0 +1,14 @@
+{% extends 'layouts/form.html' %}
+{% block title %}- Login{% endblock %}
+{% block content %}
+  <form method="post" class="form">
+    <h3 class="form-heading">Login</h3>
+    {{ form.csrf_token }}
+    {{ form.name(class_ = 'form-control first-input', placeholder = form.name.label.text, required = true, autofocus = true) }}
+    {{ form.password(class_ = 'form-control last-input', placeholder = form.password.label.text, required = true) }}
+    <p class="pull-left"><a href="{{ url_for('forgot') }}">Forgot Your Password?</a></p>
+    <p><input type="submit" value="Login" class="btn btn-primary btn-lg btn-block" ></p>
+    <p class="pull-left">Need an account? <a href="{{ url_for('register') }}">Register</a></p>
+
+  </form>
+{% endblock %}

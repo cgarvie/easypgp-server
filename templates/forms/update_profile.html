@@ -1,0 +1,32 @@
+{% extends 'layouts/form.html' %}
+{% block title %}- Register{% endblock %}
+{% block content %}
+
+  <form method="post" class="form">
+    <h3 class="form-heading">Register</h3>
+    <div class="alert alert-danger {% if not form.errors %} hidden {% endif %}">
+        <ul class="errors">
+            {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+                {% for error in field_errors %}
+                    <li>{{ form[field_name].label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+    {{ form.csrf_token }}
+    Facebook OAuth says that your name is: {{ fbdata['name'] }}<br>{{ fbdata['email'] }}<br>
+    <h3>fbdata</h3>
+    {% for key, value in fbdata.iteritems() %}
+            <dt>{{ key }}</dt>
+            <dd>{{ value }}</dd>
+      {% endfor %}
+    {{ form.email(class_ = 'form-control', placeholder = fbdata['email'] or form.email.label.text, required = true) }}
+    <h3>Choose a password</h3>
+    <p>This password will only be used to authenticate you in the event you wish to change your encryption key. Sharing this password with someone will not allow the decryption of your messages.</p>
+    {{ form.password(class_ = 'form-control', placeholder = form.password.label.text, required = true) }}
+    {{ form.confirm(class_ = 'form-control last-input', placeholder = form.confirm.label.text, required = true) }}
+
+    <p><input type="submit" value="Register" class="btn btn-primary btn-lg btn-block" ></p>
+
+  </form>
+{% endblock %}
